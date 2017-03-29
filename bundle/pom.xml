@@ -89,6 +89,10 @@
             <groupId>org.jruby</groupId>
             <artifactId>jruby-complete</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.bit3</groupId>
+            <artifactId>jsass</artifactId>
+        </dependency>
     </dependencies>
 
     <!-- ====================================================================== -->
@@ -115,7 +119,8 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>com.github.mickleroy.aem-sass-compiler</Bundle-SymbolicName>
-                        <Bundle-ClassPath>.</Bundle-ClassPath>
+                        <Bundle-ClassPath>.,{maven-dependencies}</Bundle-ClassPath>
+                        <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
                     </instructions>
                 </configuration>
             </plugin>

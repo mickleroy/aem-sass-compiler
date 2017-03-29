@@ -3,6 +3,10 @@ package com.github.mickleroy.aem.sass.impl;
 import com.adobe.granite.ui.clientlibs.script.CompilerContext;
 import com.adobe.granite.ui.clientlibs.script.ScriptCompiler;
 import com.adobe.granite.ui.clientlibs.script.ScriptResource;
+import io.bit3.jsass.CompilationException;
+import io.bit3.jsass.Compiler;
+import io.bit3.jsass.Options;
+import io.bit3.jsass.Output;
 import org.apache.commons.io.IOUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
@@ -20,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -33,16 +38,37 @@ public class SassCompilerImpl implements ScriptCompiler {
     private static final String CSS_MIME_TYPE = "text/css";
     private static final Logger log = LoggerFactory.getLogger(SassCompilerImpl.class);
 
+    // jruby
     private Bundle bundle;
     private OSGiScriptingContainer container;
     private Object receiver;
 
+    // jsass
+    private Compiler compiler;
+    private Options options;
+
     @Activate
     public void activate(ComponentContext context) {
         log.info("Activating Sass Compiler");
+
+        /**
         bundle = context.getBundleContext().getBundle();
         container = new OSGiScriptingContainer(bundle);
+
+        // include ruby sass gem
+        List<String> loadPaths = container.getLoadPaths();
+        loadPaths.add("/gems/sass-3.4.5.jar");
+        container.setLoadPaths(loadPaths);
+
+        // run setup script
         receiver = container.runScriptlet(bundle, "/scripts/setup.rb");
+
+        // trigger sass compilation
+        container.callMethod(receiver, "compile");
+        */
+
+        compiler = new Compiler();
+        options = new Options();
     }
 
     @Override
@@ -75,8 +101,14 @@ public class SassCompilerImpl implements ScriptCompiler {
             log.debug("Scss source: {}", scss);
 
             //TODO compile the shiz
-
-            dst.write(scss);
+            String css = "";
+            try {
+                Output output = compiler.compileString(scss, options);
+                css = output.getCss();
+            } catch (CompilationException e) {
+                log.error("Could not compiler sass", e);
+            }
+            dst.write(css);
         }
 
         long t1 = System.currentTimeMillis();
