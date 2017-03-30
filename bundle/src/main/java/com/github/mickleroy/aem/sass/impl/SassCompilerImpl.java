@@ -60,22 +60,18 @@ public class SassCompilerImpl implements ScriptCompiler {
     }
 
     @Override
-    public void compile(Collection<ScriptResource> scriptResources, Writer dst, CompilerContext ctx) throws IOException {
+    public void compile(Collection<ScriptResource> scriptResources, Writer out, CompilerContext ctx) throws IOException {
         long t0 = System.currentTimeMillis();
 
         for(ScriptResource src : scriptResources) {
             log.info("Found source {}", src.getName());
             String scss = retrieveInputString(src);
-            log.debug("Scss source: {}", scss);
-
-            String css = "";
             try {
                 Output output = compiler.compileString(scss, options);
-                css = output.getCss();
+                out.write(output.getCss());
             } catch (CompilationException e) {
-                log.error("Could not compiler sass", e);
+                dumpError(out, src.getName(), e.getErrorMessage());
             }
-            dst.write(css);
         }
 
         long t1 = System.currentTimeMillis();
@@ -92,5 +88,14 @@ public class SassCompilerImpl implements ScriptCompiler {
         }
 
         return src;
+    }
+
+    private void dumpError(Writer out, String name, String message) throws IOException {
+        log.error("failed to compile scss {}: {}", name, message);
+        out.write("/*****************************************************\n");
+        out.write("SASS compilation failed due an error!\n\n");
+        out.write("Input: " + name + "\n");
+        out.write("Error:" + message + "\n");
+        out.write("*****************************************************/\n");
     }
 }
