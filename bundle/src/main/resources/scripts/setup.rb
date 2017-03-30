@@ -1,1 +1,0 @@
-print "[JRuby] Hello Ruby!\n"

@@ -78,10 +78,6 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.jruby</groupId>
-            <artifactId>jruby-complete</artifactId>
-        </dependency>
     </dependencies>
     <build>
         <resources>
@@ -103,9 +99,6 @@
                     <includeEmptyDirs>true</includeEmptyDirs>
                 </configuration>
             </plugin>
-
-
-
             <plugin>
                 <groupId>com.day.jcr.vault</groupId>
                 <artifactId>content-package-maven-plugin</artifactId>
@@ -115,17 +108,11 @@
                     <filterSource>src/main/content/META-INF/vault/filter.xml</filterSource>
                     <embeddeds>
                         <embedded>
-                            <groupId>org.jruby</groupId>
-                            <artifactId>jruby-complete</artifactId>
-                            <target>/apps/aem-sass-compiler/install</target>
-                        </embedded>
-                        <embedded>
                             <groupId>com.github.mickleroy</groupId>
                             <artifactId>aem-sass-compiler-bundle</artifactId>
                             <target>/apps/aem-sass-compiler/install</target>
                         </embedded>
                     </embeddeds>
-
                     <targetURL>http://${crx.host}:${crx.port}/crx/packmgr/service.jsp</targetURL>
                 </configuration>
             </plugin>

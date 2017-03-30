@@ -86,10 +86,6 @@
             <artifactId>slf4j-simple</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jruby</groupId>
-            <artifactId>jruby-complete</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.bit3</groupId>
             <artifactId>jsass</artifactId>
         </dependency>

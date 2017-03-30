@@ -11,12 +11,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
-import org.jruby.embed.LocalContextScope;
-import org.jruby.embed.LocalVariableBehavior;
-import org.jruby.embed.ScriptingContainer;
-import org.jruby.embed.osgi.OSGiScriptingContainer;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
 import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +18,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-
 
 @Component
 @Service(ScriptCompiler.class)
@@ -38,35 +29,12 @@ public class SassCompilerImpl implements ScriptCompiler {
     private static final String CSS_MIME_TYPE = "text/css";
     private static final Logger log = LoggerFactory.getLogger(SassCompilerImpl.class);
 
-    // jruby
-    private Bundle bundle;
-    private OSGiScriptingContainer container;
-    private Object receiver;
-
-    // jsass
     private Compiler compiler;
     private Options options;
 
     @Activate
     public void activate(ComponentContext context) {
         log.info("Activating Sass Compiler");
-
-        /**
-        bundle = context.getBundleContext().getBundle();
-        container = new OSGiScriptingContainer(bundle);
-
-        // include ruby sass gem
-        List<String> loadPaths = container.getLoadPaths();
-        loadPaths.add("/gems/sass-3.4.5.jar");
-        container.setLoadPaths(loadPaths);
-
-        // run setup script
-        receiver = container.runScriptlet(bundle, "/scripts/setup.rb");
-
-        // trigger sass compilation
-        container.callMethod(receiver, "compile");
-        */
-
         compiler = new Compiler();
         options = new Options();
     }
@@ -100,7 +68,6 @@ public class SassCompilerImpl implements ScriptCompiler {
             String scss = retrieveInputString(src);
             log.debug("Scss source: {}", scss);
 
-            //TODO compile the shiz
             String css = "";
             try {
                 Output output = compiler.compileString(scss, options);
