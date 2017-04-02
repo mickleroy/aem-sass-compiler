@@ -3,6 +3,18 @@
 // IMPORTS
 
 @import 'reset';
+@import 'reset.scss';
+@import '/etc/designs/aem-sass-compiler/clientlib/absolute';
+@import '/etc/designs/aem-sass-compiler/clientlib/absolute.scss';
+
+@import 'partials/base';
+@import 'partials/base.scss';
+@import 'import1', 'import2';
+
+// Compile to CSS in these cases (skip?):
+@import url('some-url');
+@import 'http://some-url/';
+@import 'plain.css';
 
 // VARIABLES
 
