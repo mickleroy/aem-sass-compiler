@@ -6,7 +6,22 @@ This bundle provides support for the [Sass](http://sass-lang.com/) CSS pre-proce
 
 ## Usage
 
-Install the provided OSGi bundle (.jar) in the latest release.
+* Install the provided OSGi bundle (.jar) in the latest release.
+* Start writing `.scss` files just like you would write `.less` files within AEM.
+```
+/etc/designs/clientlibs
+├── css.txt
+├── main.scss
+├── partials
+│   └── _base.scss
+└── plain.css
+```
+The `css.txt` file should only reference your main Sass file:
+```
+#base=.
+plain.css
+main.scss
+```
 
 ## Install Log
 
