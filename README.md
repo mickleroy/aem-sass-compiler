@@ -1,11 +1,26 @@
+# Sass Compiler for AEM 6.x
 
-## Install log
+[![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
+
+This bundle provides support for the [Sass](http://sass-lang.com/) CSS pre-processor in Adobe Experience Manager 6.x.
+
+## Usage
+
+Install the provided OSGi bundle (.jar) in the latest release.
+
+## Install Log
+
+The following log entries should be visible when installing the bundle:
+
 ```
 *INFO* [OsgiInstallerImpl] com.adobe.granite.ui.clientlibs.impl.CompilerProviderImpl Registering client library compiler scss
 *INFO* [OsgiInstallerImpl] com.github.mickleroy.aem-sass-compiler Service [com.github.mickleroy.aem.sass.impl.SassCompilerImpl,7730, [com.adobe.granite.ui.clientlibs.script.ScriptCompiler]] ServiceEvent REGISTERED
 ```
 
-## Compilation log
+## Sass Compilation Log
+
+The following log entries should be visible when compiling a `.scss` file:
+
 ```
 *INFO* [0:0:0:0:0:0:0:1 [1490695427683] GET /etc/designs/aem-sass-compiler/clientlib.css HTTP/1.1] com.adobe.granite.ui.clientlibs.impl.HtmlLibraryManagerImpl Start building CSS library: /etc/designs/aem-sass-compiler/clientlib
 *INFO* [0:0:0:0:0:0:0:1 [1490695427683] GET /etc/designs/aem-sass-compiler/clientlib.css HTTP/1.1] com.github.mickleroy.aem.sass.impl.SassCompilerImpl Found source /etc/designs/aem-sass-compiler/clientlib/sample.scss
@@ -13,25 +28,12 @@
 *INFO* [0:0:0:0:0:0:0:1 [1490695427683] GET /etc/designs/aem-sass-compiler/clientlib.css HTTP/1.1] com.adobe.granite.ui.clientlibs.impl.HtmlLibraryManagerImpl finished building library /etc/designs/aem-sass-compiler/clientlib.css
 ```
 
-## Test resources
-[Clientlib Cache Clear](http://localhost:4502/libs/granite/ui/content/dumplibs.rebuild.html?invalidate=true)
+## Implementation Details
 
-[Sample Scss Clientlib](http://localhost:4502/etc/designs/aem-sass-compiler/clientlib.css)
+Currently support LibSass version **3.4.3**.
 
-## Ruby version
-The Sass compiler makes use of JRuby 9.1.8.0 under the hood so it is compatible with Ruby 2.x.
-More info at [http://jruby.org/](http://jruby.org/)
-
-## Libsass
-LibSass is a C/C++ port of the original engine written in Ruby. The latest stable release is 3.4.3.
+**LibSass** is a C/C++ port of the original engine written in Ruby.
 More info at [https://github.com/sass/libsass](https://github.com/sass/libsass)
 
-### Java Wrapper
-JSass is the Java wrapper of LibSass. The latest release is 5.4.3 (for libsass 3.4.3) 
+**jsass** is a feature complete Java wrapper of LibSass (requires Java 8).
 More info at [https://github.com/bit3/jsass](https://github.com/bit3/jsass)
-Docs at [http://jsass.readthedocs.io/en/latest/](http://jsass.readthedocs.io/en/latest/)
-Note: requires Java 8
-
-### Ruby Wrapper
-SassC Ruby is the Ruby wrapper of LibSass. The latest release is 1.11.2 (for libsass 3.4.3)
-More info at [https://github.com/sass/sassc-ruby](https://github.com/sass/sassc-ruby)
