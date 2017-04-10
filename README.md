@@ -29,8 +29,9 @@ main.scss
 The following log entries should be visible when installing the bundle:
 
 ```
-*INFO* [OsgiInstallerImpl] com.adobe.granite.ui.clientlibs.impl.CompilerProviderImpl Registering client library compiler scss
-*INFO* [OsgiInstallerImpl] com.github.mickleroy.aem-sass-compiler Service [com.github.mickleroy.aem.sass.impl.SassCompilerImpl,7730, [com.adobe.granite.ui.clientlibs.script.ScriptCompiler]] ServiceEvent REGISTERED
+*INFO* [...] com.adobe.granite.ui.clientlibs.impl.CompilerProviderImpl Registering client library compiler scss
+*INFO* [...] com.github.mickleroy.aem.sass.impl.SassCompilerImpl Activating Sass Compiler
+*INFO* [...] com.github.mickleroy.aem-sass-compiler Service [com.github.mickleroy.aem.sass.impl.SassCompilerImpl,7730, [com.adobe.granite.ui.clientlibs.script.ScriptCompiler]] ServiceEvent REGISTERED
 ```
 
 ## Sass Compilation Log
