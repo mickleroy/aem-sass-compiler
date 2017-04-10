@@ -53,3 +53,31 @@ More info at [https://github.com/sass/libsass](https://github.com/sass/libsass)
 
 **jsass** is a feature complete Java wrapper of LibSass (requires Java 8).
 More info at [https://github.com/bit3/jsass](https://github.com/bit3/jsass)
+
+## Release
+
+Create a release branch off the `master` branch
+```
+git branch release/X.X.X
+```
+
+Prepare the release (use vX.X.X for the tag)
+```
+mvn release:prepare -DpushChanges=false
+```
+
+Push the changes to the repository
+```
+git push origin
+```
+
+Checkout the newly created tag and build the project
+```
+git checkout tags/vX.X.X
+```
+
+```
+mvn clean package
+```
+
+Attach the jar to the release on Github and merge back to `master`.
