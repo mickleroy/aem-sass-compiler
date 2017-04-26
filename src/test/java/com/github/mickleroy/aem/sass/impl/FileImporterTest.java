@@ -17,6 +17,7 @@ import org.mockito.MockitoAnnotations;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
 
@@ -31,27 +32,31 @@ public class FileImporterTest {
     private ScriptResourceProvider mockResourceProvider;
     @Mock
     private ScriptResource mockScriptResource;
+    @Mock
+    private Import mockPreviousImport;
 
     private static final String SAMPLE_CONTENTS = "html { margin: 0; }";
     private static final String ROOT_SASS_FILE = "/etc/designs/acme/clientlibs/main.scss";
 
     @Before
-    public void before() {
+    public void before() throws URISyntaxException {
         MockitoAnnotations.initMocks(this);
         when(mockCompilerContext.getResourceProvider()).thenReturn(mockResourceProvider);
+        when(mockScriptResource.getName()).thenReturn("");
+        when(mockPreviousImport.getAbsoluteUri()).thenReturn(new URI("stdin"));
     }
 
     @Test
     public void testSkipImporterHttp() throws URISyntaxException {
         Importer importer = spy(new FileImporter(mockCompilerContext, ROOT_SASS_FILE));
-        Collection<Import> imports = importer.apply("http://foo.bar", new Import("", ""));
+        Collection<Import> imports = importer.apply("http://foo.bar", mockPreviousImport);
         Assert.assertNull(imports);
     }
 
     @Test
     public void testSkipImporterCss() throws URISyntaxException {
         Importer importer = spy(new FileImporter(mockCompilerContext, ROOT_SASS_FILE));
-        Collection<Import> imports = importer.apply("plain.css", new Import("", ""));
+        Collection<Import> imports = importer.apply("plain.css", mockPreviousImport);
         Assert.assertNull(imports);
     }
 
@@ -62,7 +67,7 @@ public class FileImporterTest {
         when(mockResourceProvider.getResource("/etc/designs/acme/clientlibs/reset.scss")).thenReturn(mockScriptResource);
 
         Importer importer = spy(new FileImporter(mockCompilerContext, ROOT_SASS_FILE));
-        Collection<Import> imports = importer.apply("reset", new Import("", ""));
+        Collection<Import> imports = importer.apply("reset", mockPreviousImport);
 
         Assert.assertEquals(1, imports.size());
         Assert.assertEquals(SAMPLE_CONTENTS, imports.iterator().next().getContents());
@@ -75,7 +80,7 @@ public class FileImporterTest {
         when(mockResourceProvider.getResource("/etc/designs/acme/clientlibs/reset.scss")).thenReturn(mockScriptResource);
 
         Importer importer = spy(new FileImporter(mockCompilerContext, ROOT_SASS_FILE));
-        Collection<Import> imports = importer.apply("reset.scss", new Import("", ""));
+        Collection<Import> imports = importer.apply("reset.scss", mockPreviousImport);
 
         Assert.assertEquals(1, imports.size());
         Assert.assertEquals(SAMPLE_CONTENTS, imports.iterator().next().getContents());
@@ -88,7 +93,7 @@ public class FileImporterTest {
         when(mockResourceProvider.getResource("/etc/designs/myco/clientlibs/absolute.scss")).thenReturn(mockScriptResource);
 
         Importer importer = spy(new FileImporter(mockCompilerContext, ROOT_SASS_FILE));
-        Collection<Import> imports = importer.apply("/etc/designs/myco/clientlibs/absolute", new Import("", ""));
+        Collection<Import> imports = importer.apply("/etc/designs/myco/clientlibs/absolute", mockPreviousImport);
 
         Assert.assertEquals(1, imports.size());
         Assert.assertEquals(SAMPLE_CONTENTS, imports.iterator().next().getContents());
@@ -101,7 +106,7 @@ public class FileImporterTest {
         when(mockResourceProvider.getResource("/etc/designs/myco/clientlibs/absolute.scss")).thenReturn(mockScriptResource);
 
         Importer importer = spy(new FileImporter(mockCompilerContext, ROOT_SASS_FILE));
-        Collection<Import> imports = importer.apply("/etc/designs/myco/clientlibs/absolute.scss", new Import("", ""));
+        Collection<Import> imports = importer.apply("/etc/designs/myco/clientlibs/absolute.scss", mockPreviousImport);
 
         Assert.assertEquals(1, imports.size());
         Assert.assertEquals(SAMPLE_CONTENTS, imports.iterator().next().getContents());
@@ -114,7 +119,7 @@ public class FileImporterTest {
         when(mockResourceProvider.getResource("/etc/designs/acme/clientlibs/partials/base.scss")).thenReturn(mockScriptResource);
 
         Importer importer = spy(new FileImporter(mockCompilerContext, ROOT_SASS_FILE));
-        Collection<Import> imports = importer.apply("partials/base.scss", new Import("", ""));
+        Collection<Import> imports = importer.apply("partials/base.scss", mockPreviousImport);
 
         Assert.assertEquals(1, imports.size());
         Assert.assertEquals(SAMPLE_CONTENTS, imports.iterator().next().getContents());
@@ -125,6 +130,6 @@ public class FileImporterTest {
         when(mockResourceProvider.getResource("/etc/designs/acme/clientlibs/unknown.png")).thenReturn(null);
 
         Importer importer = spy(new FileImporter(mockCompilerContext, ROOT_SASS_FILE));
-        importer.apply("unknown.png", new Import("", ""));
+        importer.apply("unknown.png", mockPreviousImport);
     }
 }

@@ -46,7 +46,12 @@ public class FileImporter implements Importer {
     /**
      * The path to the script that initiated the compilation i.e. /etc/designs/acme/clientlibs/main.scss
      */
-    private String path;
+    private String pathToPrimaryFile;
+
+    /**
+     * The path to the file the importer is currently processing i.e. /etc/designs/acme/clientlibs/partials/_base.scss
+     */
+    private String pathToCurrentFile;
 
     /**
      * A list of formats to be used to find potential matching resources
@@ -63,7 +68,8 @@ public class FileImporter implements Importer {
 
     public FileImporter(CompilerContext context, String path) {
         this.context = context;
-        this.path = path;
+        this.pathToPrimaryFile = path;
+        this.pathToCurrentFile = path;
     }
 
     @Override
@@ -73,7 +79,7 @@ public class FileImporter implements Importer {
         }
 
         ScriptResource resource = null;
-        String currentDir  = getCurrentDirectory();
+        String currentDir  = getCurrentDirectory(previous);
         String pathToFile  = getPathToFile(url);
         String getFileName = getFileName(url);
 
@@ -84,8 +90,8 @@ public class FileImporter implements Importer {
 
         // loop through potential matches
         for(String matcher : PATH_MATCHERS) {
-            String path = String.format(matcher, currentDir, pathToFile, getFileName);
-            resource = getResource(path);
+            String pathToImport = String.format(matcher, currentDir, pathToFile, getFileName);
+            resource = getResource(pathToImport);
 
             if(resource != null) {
                 break;
@@ -99,8 +105,8 @@ public class FileImporter implements Importer {
 
         try {
             return Collections.singletonList(new Import(
-                    new URI(url),
-                    new URI(url),
+                    new URI(resource.getName()),
+                    new URI(resource.getName()),
                     ScriptResourceUtil.retrieveContents(resource)
             ));
         } catch (URISyntaxException | IOException ex) {
@@ -162,10 +168,18 @@ public class FileImporter implements Importer {
     }
 
     /**
-     * Gets the directory of the script resource that initiated the compilation.
+     * Gets the directory of the script resource that the importer is currently processing.
+     * Must take into account previous @import for nested directives.
      * @return
      */
-    private String getCurrentDirectory() {
-        return path.substring(0, path.lastIndexOf("/") + 1);
+    private String getCurrentDirectory(Import previous) {
+        // if processing from standard in, use path to primary file
+        if("stdin".equals(previous.getAbsoluteUri().getPath())) {
+            pathToCurrentFile = pathToPrimaryFile;
+        } else {
+            pathToCurrentFile = previous.getAbsoluteUri().getPath();
+        }
+
+        return pathToCurrentFile.substring(0, pathToCurrentFile.lastIndexOf("/") + 1);
     }
 }
