@@ -3,6 +3,7 @@ package com.github.mickleroy.aem.sass.impl;
 import com.adobe.granite.ui.clientlibs.script.CompilerContext;
 import com.adobe.granite.ui.clientlibs.script.ScriptCompiler;
 import com.adobe.granite.ui.clientlibs.script.ScriptResource;
+import com.adobe.granite.ui.clientlibs.script.Utils;
 import com.github.mickleroy.aem.sass.util.ScriptResourceUtil;
 import io.bit3.jsass.CompilationException;
 import io.bit3.jsass.Compiler;
@@ -66,7 +67,9 @@ public class SassCompilerImpl implements ScriptCompiler {
                 Options options = new Options();
                 options.getImporters().add(new FileImporter(ctx, src.getName()));
                 Output output = compiler.compileString(scss, options);
-                out.write(output.getCss());
+                String css = output.getCss();
+                css = Utils.rewriteUrlsInCss(ctx.getDestinationPath(), src.getName(), css);
+                out.write(css);
             } catch (CompilationException e) {
                 dumpError(out, src.getName(), e.getErrorMessage());
             }
