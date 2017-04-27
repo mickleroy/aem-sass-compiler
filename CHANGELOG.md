@@ -1,3 +1,7 @@
+### 1.0.0
+* Initial release
+    * Fixed issue with some paths being processed incorrectly by AEM
+
 ### 0.0.2
 * Adds support for nested `@import` directives
 * Known issues:
