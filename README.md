@@ -1,8 +1,8 @@
-# Sass Compiler for AEM 6.x
+# Sass Compiler for AEM 6.2+
 
 [![Build Status](https://travis-ci.org/mickleroy/aem-sass-compiler.svg?branch=master)](https://travis-ci.org/mickleroy/aem-sass-compiler)
 
-This bundle provides support for the [Sass](http://sass-lang.com/) CSS pre-processor in Adobe Experience Manager 6.x.
+This bundle provides support for the [Sass](http://sass-lang.com/) CSS pre-processor in Adobe Experience Manager 6.2+.
 
 ## Features
 
