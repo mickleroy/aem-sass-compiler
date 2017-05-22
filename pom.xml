@@ -38,6 +38,11 @@
     </licenses>
 
     <distributionManagement>
+        <snapshotRepository>
+            <id>sonatype-snapshot</id>
+            <name>Sonatype Snapshot</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
         <repository>
             <id>sonatype-release</id>
             <name>Sonatype Release</name>
