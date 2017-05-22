@@ -10,7 +10,17 @@
     <artifactId>aem-sass-compiler</artifactId>
     <version>1.0.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
+
     <name>Sass compiler for AEM</name>
+    <description>Enable Sass support for Adobe Experience Manager</description>
+    <url>https://github.com/mickleroy/aem-sass-compiler</url>
+
+    <developers>
+        <developer>
+            <name>Michael Leroy</name>
+            <organizationUrl>https://github.com/mickleroy</organizationUrl>
+        </developer>
+    </developers>
 
     <scm>
         <connection>scm:git:https://github.com/mickleroy/aem-sass-compiler.git</connection>
