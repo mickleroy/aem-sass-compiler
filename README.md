@@ -34,9 +34,48 @@ If any one of the conditions below are met, the `@import` will be skipped and co
 * The @import has any media queries
 
 
+## Installation
+
+### Via Maven (preferred)
+
+* Add the following dependency to your POM:
+```
+<dependency>
+    <groupId>com.github.mickleroy</groupId>
+    <artifactId>aem-sass-compiler</artifactId>
+    <version>1.0.1</version>
+</dependency>
+```
+> Note: replace "1.0.1" with the latest version of the compiler.
+
+* In your `content-package-maven-plugin` configuration, add an `embedded` entry for the compiler:
+```
+<plugin>
+    <groupId>com.day.jcr.vault</groupId>
+    <artifactId>content-package-maven-plugin</artifactId>
+    <extensions>true</extensions>
+    <configuration>
+        <embeddeds>
+            <embedded>
+                <groupId>com.github.mickleroy</groupId>
+                <artifactId>aem-sass-compiler</artifactId>
+                <target>/apps/my-aem-project/install</target>
+            </embedded>
+        </embeddeds>
+        <!-- other entries... -->
+    </configuration>
+</plugin>
+```
+> Note: replace "/apps/my-aem-project/install" with your own project path.
+
+### Via Web Console
+
+Install the provided OSGi bundle (.jar) in the latest [release](https://github.com/mickleroy/aem-sass-compiler/releases)
+via the Web Console.
+
+
 ## Usage
 
-* Install the provided OSGi bundle (.jar) in the latest [release](https://github.com/mickleroy/aem-sass-compiler/releases).
 * Start writing `.scss` files just like you would write `.less` files within AEM.
 ```
 /etc/designs/clientlibs
