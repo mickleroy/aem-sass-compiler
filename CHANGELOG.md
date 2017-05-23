@@ -1,3 +1,6 @@
+### 1.0.1
+* Release for Maven Central
+
 ### 1.0.0
 * Initial release
     * Fixed issue with some paths being processed incorrectly by AEM
