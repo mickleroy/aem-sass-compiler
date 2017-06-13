@@ -147,12 +147,13 @@
             <version>1.4</version>
             <scope>test</scope>
         </dependency>
+        <!-- Apache Sling Dependencies -->
         <dependency>
             <groupId>com.adobe.aem</groupId>
             <artifactId>uber-jar</artifactId>
-            <classifier>apis</classifier>
-            <version>6.2.0</version>
+            <version>6.1.0-SP2</version>
             <scope>provided</scope>
+            <classifier>obfuscated-apis</classifier>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
