@@ -1,6 +1,7 @@
 package com.github.mickleroy.aem.sass.exceptions;
 
 
+@SuppressWarnings("serial")
 public class ImportFileNotFoundException extends RuntimeException {
 
     private String path;

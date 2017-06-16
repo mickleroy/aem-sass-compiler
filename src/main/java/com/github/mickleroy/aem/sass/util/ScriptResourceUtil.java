@@ -15,7 +15,7 @@ public final class ScriptResourceUtil {
      * @throws IOException
      */
     public static String retrieveContents(ScriptResource resource) throws IOException {
-        String src;
+        String src = null;
         try (Reader in = resource.getReader()) {
             src = IOUtils.toString(in);
             src = src.replace("\r", "");
