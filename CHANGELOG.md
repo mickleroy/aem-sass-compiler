@@ -1,3 +1,7 @@
+### 1.0.2
+* Maintenance release with [Jsass 5.5.1](https://github.com/bit3/jsass/releases/tag/5.5.1)
+* Updated uber-jar version to 6.2.0-SP1
+
 ### 1.0.1
 * Release for Maven Central
 

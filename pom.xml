@@ -151,7 +151,7 @@
             <groupId>com.adobe.aem</groupId>
             <artifactId>uber-jar</artifactId>
             <classifier>apis</classifier>
-            <version>6.2.0</version>
+            <version>6.2.0-SP1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -169,7 +169,7 @@
         <dependency>
             <groupId>io.bit3</groupId>
             <artifactId>jsass</artifactId>
-            <version>5.4.3</version>
+            <version>5.5.2</version>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
