@@ -3,7 +3,6 @@ package com.github.mickleroy.aem.sass.impl;
 import com.adobe.granite.ui.clientlibs.script.CompilerContext;
 import com.adobe.granite.ui.clientlibs.script.ScriptCompiler;
 import com.adobe.granite.ui.clientlibs.script.ScriptResource;
-import com.adobe.granite.ui.clientlibs.script.Utils;
 import com.github.mickleroy.aem.sass.util.ScriptResourceUtil;
 import io.bit3.jsass.CompilationException;
 import io.bit3.jsass.Compiler;
