@@ -66,7 +66,8 @@ public class SassCompilerImplTest {
     @Test
     public void testCompile() throws IOException {
         String inputScss = "html { p { color: red; } }";
-        String outputCss = "html p {\n  color: red; }\n";
+        // use String.format to ensure platform-dependent line separator
+        String outputCss = String.format("html p {%n  color: red; }%n");
         PrintWriter out = spy(new PrintWriter(File.createTempFile("aem-sass-compiler", "")));
         when(mockScriptResource.getReader()).thenReturn(new InputStreamReader(IOUtils.toInputStream(inputScss)));
 

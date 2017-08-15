@@ -79,6 +79,7 @@ public class FileImporter implements Importer {
         }
 
         ScriptResource resource = null;
+        String resourcePath = null;
         String currentDir  = getCurrentDirectory(previous);
         String pathToFile  = getPathToFile(url);
         String getFileName = getFileName(url);
@@ -94,6 +95,7 @@ public class FileImporter implements Importer {
             resource = getResource(pathToImport);
 
             if(resource != null) {
+                resourcePath = pathToImport;
                 break;
             }
         }
@@ -104,6 +106,7 @@ public class FileImporter implements Importer {
         }
 
         try {
+            context.getDependencies().add(resourcePath);
             return Collections.singletonList(new Import(
                     new URI(resource.getName()),
                     new URI(resource.getName()),
