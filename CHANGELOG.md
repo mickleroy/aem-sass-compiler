@@ -1,3 +1,9 @@
+### 0.9.1
+* Fixes issue with client library not getting invalidated when modifying dependent files (#4)
+
+### 0.9.0
+* Initial release for 6.1 support
+
 ### 1.0.2
 * Maintenance release with [Jsass 5.5.1](https://github.com/bit3/jsass/releases/tag/5.5.1)
 * Updated uber-jar version to 6.2.0-SP1
