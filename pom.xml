@@ -169,7 +169,7 @@
         <dependency>
             <groupId>io.bit3</groupId>
             <artifactId>jsass</artifactId>
-            <version>5.5.2</version>
+            <version>5.7.3</version>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
