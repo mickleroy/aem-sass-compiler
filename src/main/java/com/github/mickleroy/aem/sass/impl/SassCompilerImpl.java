@@ -9,10 +9,10 @@ import io.bit3.jsass.CompilationException;
 import io.bit3.jsass.Compiler;
 import io.bit3.jsass.Options;
 import io.bit3.jsass.Output;
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Service;
 import org.osgi.service.component.ComponentContext;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.propertytypes.ServiceDescription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,8 +20,8 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Collection;
 
-@Component
-@Service(ScriptCompiler.class)
+@Component(service=ScriptCompiler.class)
+@ServiceDescription("Sass Script Complier")
 public class SassCompilerImpl implements ScriptCompiler {
 
     private static final String SCSS_EXTENSION = "scss";

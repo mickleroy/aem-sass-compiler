@@ -119,7 +119,7 @@ Similar log entries should be visible when compiling a `.scss` file:
 
 ## Implementation Details
 
-Currently support LibSass version **3.4.3**.
+Currently support LibSass version **3.6.3**.
 
 **LibSass** is a C/C++ port of the original engine written in Ruby.
 More info at [https://github.com/sass/libsass](https://github.com/sass/libsass)
