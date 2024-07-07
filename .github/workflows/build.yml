@@ -8,9 +8,12 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    
+    container:
+      image: maven:3.8.6-openjdk-11
+      options: --entrypoint /bin/bash
+  
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 8
